@@ -10,10 +10,38 @@ module Text.Localize
    -- * Basic functions
    translate, translateN, translateNFormat,
    lookup, withTranslation,
+
    -- * Reexports
-   module Text.Localize.Types,
-   module Text.Localize.Load,
-   module Text.Localize.Locale
+
+   -- ** Locale
+   languageFromLocale,
+
+   -- ** Load
+   Facet,
+   LocatePolicy(..),
+   loadTranslations,
+   locateTranslations,
+   linuxLocation,
+   localLocation,
+
+   -- ** Types
+   LanguageId,
+   Context,
+   TranslationSource,
+   Translations(..),
+   availableLanguages,
+   Localized,
+   toText,
+
+   -- ** Monad
+   LocState(..),
+   LocalizeT,
+   runLocalizeT,      -- TODO add execLocalizeT and execLocalize
+   setLanguage,
+   withLanguage,
+   setContext,
+   withContext
+
   ) where
 
 import Prelude hiding (lookup)
@@ -26,6 +54,7 @@ import Data.Text.Format.Heavy.Parse (parseFormat)
 import Text.Localize.Types
 import Text.Localize.Load
 import Text.Localize.Locale
+import Text.Localize.State
 
 -- $description
 --

@@ -21,10 +21,10 @@ common shared
 library
   import:              shared
   exposed-modules:     Text.Localize,
-                       Text.Localize.Types,
+                       Text.Localize.IO
+  other-modules:       Text.Localize.Types,
                        Text.Localize.Load,
                        Text.Localize.State,
-                       Text.Localize.IO,
                        Text.Localize.Locale
   build-depends:       binary >=0.7 && < 0.9,
                        containers >=0.5 && < 0.9,
