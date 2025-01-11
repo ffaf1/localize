@@ -40,6 +40,7 @@ library
                        time >=1.4 && < 1.17,
                        transformers >=0.3 && < 0.7,
                        setlocale >= 1.0 && < 1.1
+  hs-source-dirs:      src
 
 Source-repository head
   type: git
