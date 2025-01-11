@@ -14,7 +14,7 @@ import Data.Text.Format.Heavy (Single (..))
 import Text.Localize
 
 data LocState = LocState {
-  lsTranslations :: Translations, 
+  lsTranslations :: Translations,
   lsLanguage :: LanguageId }
   deriving (Show)
 
@@ -49,4 +49,3 @@ main = runLoc $ do
   hello name
   setLang "fr"
   hello name
-  

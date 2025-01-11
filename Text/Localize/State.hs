@@ -19,15 +19,15 @@ import Control.Monad.Trans
 
 import Text.Localize.Types
 
--- | Localization state
+-- | Localization state.
 data LocState = LocState {
-    lsTranslations :: Translations, 
+    lsTranslations :: Translations,
     lsLanguage :: LanguageId,
     lsContext :: Maybe Context
   }
   deriving (Show)
 
--- | Localization monad transformer
+-- | Localization monad transformer.
 newtype LocalizeT m a = LocalizeT {
     unLocalizeT :: StateT LocState m a
   }
@@ -42,7 +42,7 @@ instance Monad m => Localized (LocalizeT m) where
 runLocalizeT :: Monad m => LocalizeT m a -> LocState -> m a
 runLocalizeT actions st = evalStateT (unLocalizeT actions) st
 
--- | Set current language
+-- | Set current language.
 setLanguage :: Monad m => LanguageId -> LocalizeT m ()
 setLanguage lang = modify $ \st -> st {lsLanguage = lang}
 
@@ -67,4 +67,3 @@ withContext ctxt actions = do
   result <- actions
   setContext oldContext
   return result
-

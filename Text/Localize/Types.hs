@@ -9,16 +9,16 @@ import qualified Data.Text.Lazy as T
 import qualified Data.Text.Encoding as TE
 import qualified Data.Gettext as Gettext
 
--- | Language identifier
+-- | Language identifier.
 type LanguageId = String
 
--- | Context name
+-- | Context name.
 type Context = B.ByteString
 
--- | String to be translated
+-- | String to be translated.
 type TranslationSource = B.ByteString
 
--- | Stores translation catalogs for all supported languages
+-- | Stores translation catalogs for all supported languages.
 data Translations = Translations {
   tMap :: M.Map LanguageId Gettext.Catalog }
 
@@ -31,7 +31,7 @@ instance Show Translations where
 
 -- | This is the main type class of the package.
 -- All functions work with any instance of this type class.
--- 
+--
 -- Note that this class only supports **getting** current language
 -- and translation, not setting them. Though concrete implementation
 -- can have its own ways to change language or context, these ways are
@@ -40,7 +40,7 @@ instance Show Translations where
 class (Monad m, Applicative m) => Localized m where
   -- | Obtain currently selected language ID.
   getLanguage :: m LanguageId
-  
+
   -- | Obtain currently loaded translations.
   getTranslations :: m Translations
 
@@ -52,4 +52,3 @@ class (Monad m, Applicative m) => Localized m where
 -- | This assumes UTF-8 encoding.
 toText :: TranslationSource -> T.Text
 toText bstr = T.fromStrict $ TE.decodeUtf8 bstr
-

@@ -1,11 +1,11 @@
 {-# LANGUAGE TypeSynonymInstances, FlexibleInstances, ExistentialQuantification, DeriveDataTypeable, OverloadedStrings, RecordWildCards #-}
 -- | This module contains definitions for loading translation catalogs.
 module Text.Localize.Load
-  ( -- * Data types
+  ( -- * Data types.
     LocatePolicy (..), Facet,
-    -- * Main functions
+    -- * Main functions.
     loadTranslations, locateTranslations,
-    -- * Commonly used location policies
+    -- * Commonly used location policies.
     linuxLocation, localLocation
   ) where
 
@@ -61,13 +61,13 @@ instance Default LocatePolicy where
 
 -- | Usual Linux translations location policy.
 -- Catalog files are found under @\/usr\/[local\/]share\/locale\/{language}\/LC_MESSAGES\/{name}.mo@.
-linuxLocation :: String        -- ^ Catalog file name (text domain)
+linuxLocation :: String        -- ^ Catalog file name (text domain).
               -> LocatePolicy
 linuxLocation name = def {lcBasePaths = ["/usr/share/locale", "/usr/local/share/locale"], lcName = name}
 
 -- | Simple translations location polciy, assuming all catalog files located at
 -- @{base}\/{language}.mo@.
-localLocation :: FilePath      -- ^ Path to directory with translations
+localLocation :: FilePath      -- ^ Path to directory with translations.
               -> LocatePolicy
 localLocation base = def {lcBasePaths = [base], lcFormat = "{base}/{language}.mo"}
 
@@ -102,4 +102,3 @@ locateTranslations (LocatePolicy {..}) = liftIO $ do
 
     isLanguage (FVariable name _) = name == "language"
     isLanguage _ = False
-

@@ -73,4 +73,3 @@ withContext ctxt actions = do
   result <- actions
   setContext oldContext
   return result
-

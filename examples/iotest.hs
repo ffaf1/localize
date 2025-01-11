@@ -26,8 +26,7 @@ main = do
   TLIO.putStr =<< __ "Your name: "
   hFlush stdout
   name <- liftIO $ TLIO.getLine
-  
+
   withLanguage "en" $ hello name
   withLanguage "ru" $ hello name
   withLanguage "fr" $ hello name
-

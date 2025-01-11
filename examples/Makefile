@@ -21,4 +21,3 @@ clean:
 	find . -name \*.hi -delete
 	find . -name \*.mo -delete
 	rm -f gmotest gmodump
-

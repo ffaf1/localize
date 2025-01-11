@@ -8,7 +8,7 @@ module Text.Localize
    -- * Most used functions
    __, __n, __f,
    -- * Basic functions
-   translate, translateN, translateNFormat, 
+   translate, translateN, translateNFormat,
    lookup, withTranslation,
    -- * Reexports
    module Text.Localize.Types,
@@ -54,16 +54,16 @@ import Text.Localize.Locale
 -- import qualified Data.Text as T
 -- import qualified Data.Text.Lazy.IO as TLIO
 -- import Text.Localize
--- 
+--
 -- newtype MyMonad a = MyMonad {unMyMonad :: ... }
 --   deriving (Monad)
--- 
+--
 -- instance Localized MyMonad where
 --   ...
 --
 -- runMyMonad :: Translations -> MyMonad a -> IO a
 -- runMyMonad = ...
--- 
+--
 -- hello :: T.Text -> MyMonad ()
 -- hello name = do
 --   liftIO $ TLIO.putStrLn =<< __ "Your name: "
@@ -122,9 +122,9 @@ __ = translate
 
 -- | Translate a string, taking plural forms into account.
 translateN :: (Localized m)
-           => TranslationSource -- ^ Single form in original language
-           -> TranslationSource -- ^ Plural form in original language
-           -> Int               -- ^ Number
+           => TranslationSource -- ^ Single form in original language.
+           -> TranslationSource -- ^ Plural form in original language.
+           -> Int               -- ^ Number.
            -> m T.Text
 translateN orig plural n = do
   t <- getTranslations
@@ -140,8 +140,8 @@ translateN orig plural n = do
 -- | Translate a string and substitute variables into it.
 -- Data.Text.Format.Heavy.format syntax is used.
 translateFormat :: (Localized m, MonadFail m, F.VarContainer vars)
-                => TranslationSource -- ^ Original formatting string
-                -> vars              -- ^ Substitution variables
+                => TranslationSource -- ^ Original formatting string.
+                -> vars              -- ^ Substitution variables.
                 -> m T.Text
 translateFormat orig vars = do
   fmtStr <- translate orig
@@ -157,10 +157,10 @@ __f = translateFormat
 -- and substitute variables into it.
 -- Data.Text.Format.Heavy.format syntax is used.
 translateNFormat :: (Localized m, MonadFail m, F.VarContainer vars)
-                 => TranslationSource -- ^ Single form of formatting string in original language
-                 -> TranslationSource -- ^ Plural form of formatting string in original language
-                 -> Int               -- ^ Number
-                 -> vars              -- ^ Substitution variables
+                 => TranslationSource -- ^ Single form of formatting string in original language.
+                 -> TranslationSource -- ^ Plural form of formatting string in original language.
+                 -> Int               -- ^ Number.
+                 -> vars              -- ^ Substitution variables.
                  -> m T.Text
 translateNFormat orig plural n vars = do
   fmtStr <- translateN orig plural n
@@ -171,4 +171,3 @@ translateNFormat orig plural n vars = do
 -- | Short alias for @translateNFormat@.
 __n :: (Localized m, MonadFail m, F.VarContainer c) => TranslationSource -> TranslationSource -> Int -> c -> m T.Text
 __n = translateNFormat
-
