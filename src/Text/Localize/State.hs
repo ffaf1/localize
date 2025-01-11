@@ -13,9 +13,7 @@ module Text.Localize.State
    setContext, withContext
   ) where
 
-import Control.Applicative
 import Control.Monad.State
-import Control.Monad.Trans
 
 import Text.Localize.Types
 

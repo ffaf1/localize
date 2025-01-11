@@ -2,7 +2,6 @@
 -- | This module contains data type definitions for the @localize@ package.
 module Text.Localize.Types where
 
-import Control.Applicative
 import qualified Data.Map as M
 import qualified Data.ByteString as B
 import qualified Data.Text.Lazy as T

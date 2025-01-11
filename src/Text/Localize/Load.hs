@@ -17,7 +17,6 @@ import qualified Data.Text.Lazy as T
 import qualified Data.Gettext as Gettext
 import Data.Text.Format.Heavy
 import System.Directory
-import System.FilePath
 import System.FilePath.Glob
 
 import Text.Localize.Types

@@ -17,18 +17,8 @@ module Text.Localize
   ) where
 
 import Prelude hiding (lookup)
-import Control.Applicative
-import Control.Monad
 import qualified Data.Map as M
-import qualified Data.ByteString as B
-import qualified Data.ByteString.Lazy as L
 import qualified Data.Text.Lazy as T
-import qualified Data.Text.Lazy.Encoding as TLE
-import qualified Data.Text.Encoding as TE
-import Data.String
-import Data.List hiding (lookup)
-import Data.Monoid
-import Data.Typeable
 import qualified Data.Gettext as Gettext
 import qualified Data.Text.Format.Heavy as F
 import Data.Text.Format.Heavy.Parse (parseFormat)
