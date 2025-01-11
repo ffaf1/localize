@@ -22,6 +22,10 @@ type TranslationSource = B.ByteString
 data Translations = Translations {
   tMap :: M.Map LanguageId Gettext.Catalog }
 
+-- | List available languages.
+availableLanguages :: Translations -> [LanguageId]
+availableLanguages ts = M.keys (tMap ts)
+
 instance Show Translations where
   show t = "<Translations to languages: " ++ (unwords $ M.keys $ tMap t) ++ ">"
 
