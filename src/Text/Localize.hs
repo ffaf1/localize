@@ -30,11 +30,13 @@ module Text.Localize
    TranslationSource,
    Translations(..),
    availableLanguages,
-   Localized,
+   Localized(..),
    toText,
 
    -- ** Monad
    LocState(..),
+   Localize,
+   runLocalize,
    LocalizeT,
    runLocalizeT,      -- TODO add execLocalizeT and execLocalize
    setLanguage,

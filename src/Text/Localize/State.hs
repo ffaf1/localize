@@ -6,8 +6,10 @@
 module Text.Localize.State
   (-- * Data types
    LocState (..),
+   Localize (..),
    LocalizeT (..),
    -- * Functions
+   runLocalize,
    runLocalizeT,
    setLanguage, withLanguage,
    setContext, withContext
@@ -16,6 +18,11 @@ module Text.Localize.State
 import Control.Monad.State
 
 import Text.Localize.Types
+
+import qualified Control.Monad.Identity as I
+
+-------------------------------------------------------------------------------
+-- Types
 
 -- | Localization state.
 data LocState = LocState {
@@ -39,6 +46,24 @@ instance Monad m => Localized (LocalizeT m) where
 -- | Run a computation inside @LocalizeT@.
 runLocalizeT :: Monad m => LocalizeT m a -> LocState -> m a
 runLocalizeT actions st = evalStateT (unLocalizeT actions) st
+
+-- | Localization monad.
+newtype Localize a = Localize {
+    unLocalize :: StateT LocState I.Identity a
+  }
+  deriving (Functor, Applicative, Monad, MonadState LocState)
+
+instance Localized Localize where
+  getTranslations = gets lsTranslations
+  getLanguage = gets lsLanguage
+  getContext = gets lsContext
+
+-- | Run a computation inside 'LocalizeT'.
+runLocalize :: Localize a -> LocState -> a
+runLocalize actions st = evalState (unLocalize actions) st
+
+-------------------------------------------------------------------------------
+-- Operate
 
 -- | Set current language.
 setLanguage :: Monad m => LanguageId -> LocalizeT m ()
