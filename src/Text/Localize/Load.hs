@@ -21,7 +21,8 @@ import System.FilePath.Glob
 
 import Text.Localize.Types
 
--- | Load translations when path to each translation file is known.
+-- | Load compiled translations (@mo/@) when path to each translation file
+-- is known.
 loadTranslations :: [(LanguageId, FilePath)] -> IO Translations
 loadTranslations pairs = do
   res <- forM pairs $ \(lang, path) -> do
