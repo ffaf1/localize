@@ -137,7 +137,7 @@ translate orig = do
         Nothing -> return $ Gettext.gettext gmo orig
         Just ctxt -> return $ Gettext.cgettext gmo ctxt orig
 
--- | Short alias for @translate@.
+-- | Short alias for 'translate'.
 __ ::  (Localized m) => TranslationSource -> m T.Text
 __ = translate
 
