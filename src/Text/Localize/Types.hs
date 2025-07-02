@@ -22,6 +22,12 @@ type TranslationSource = B.ByteString
 data Translations = Translations {
   tMap :: M.Map LanguageId Gettext.Catalog }
 
+instance Semigroup Translations where
+  (<>) (Translations a) (Translations b) = Translations (a <> b)
+
+instance Monoid Translations where
+  mempty = Translations M.empty
+
 -- | List available languages.
 availableLanguages :: Translations -> [LanguageId]
 availableLanguages ts = M.keys (tMap ts)
