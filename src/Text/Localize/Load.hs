@@ -98,7 +98,7 @@ locateTranslations (LocatePolicy {..}) = liftIO $ do
       let (hd, tl) = break isLanguage items
       in  case tl of
             [] -> (hd, [])
-            _  -> (hd, tail tl)
+            (_:tl') -> (hd, tl')
 
     isLanguage (FVariable name _) = name == "language"
     isLanguage _ = False
