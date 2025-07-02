@@ -11,30 +11,8 @@ module Text.Localize.IO
   ) where
 
 import Data.IORef
-import System.IO.Unsafe (unsafePerformIO)
-
 import Text.Localize.Types
 import Text.Localize.Load
-import Text.Localize.Locale
-
-currentContext :: IORef (Maybe Context)
-currentContext = unsafePerformIO $ newIORef Nothing
-{-# NOINLINE currentContext #-}
-
-currentLanguage :: IORef LanguageId
-currentLanguage = unsafePerformIO $ do
-    language <- languageFromLocale
-    newIORef language
-{-# NOINLINE currentLanguage #-}
-
-currentTranslations :: IORef Translations
-currentTranslations = unsafePerformIO $ newIORef undefined
-{-# NOINLINE currentTranslations #-}
-
-instance Localized IO where
-  getLanguage = readIORef currentLanguage
-  getTranslations = readIORef currentTranslations
-  getContext = readIORef currentContext
 
 -- | This function must be called before any translation function call,
 -- otherwise you will get runtime error.

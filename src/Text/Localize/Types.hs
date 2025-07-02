@@ -2,11 +2,16 @@
 -- | This module contains data type definitions for the @localize@ package.
 module Text.Localize.Types where
 
+import qualified Data.IORef as IR
+import qualified Data.Maybe as MB
 import qualified Data.Map as M
 import qualified Data.ByteString as B
 import qualified Data.Text.Lazy as T
 import qualified Data.Text.Encoding as TE
 import qualified Data.Gettext as Gettext
+import qualified System.IO.Unsafe as UI
+import qualified System.Locale.SetLocale as SL
+
 
 -- | Language identifier.
 type LanguageId = String
@@ -57,3 +62,29 @@ class (Monad m, Applicative m) => Localized m where
 -- | This assumes UTF-8 encoding.
 toText :: TranslationSource -> T.Text
 toText bstr = T.fromStrict $ TE.decodeUtf8 bstr
+
+instance Localized IO where
+  getLanguage = IR.readIORef currentLanguage
+  getTranslations = IR.readIORef currentTranslations
+  getContext = IR.readIORef currentContext
+
+currentContext :: IR.IORef (Maybe Context)
+currentContext = UI.unsafePerformIO $ IR.newIORef Nothing
+{-# NOINLINE currentContext #-}
+
+currentLanguage :: IR.IORef LanguageId
+currentLanguage = UI.unsafePerformIO $ do
+    language <- languageFromLocale
+    IR.newIORef language
+{-# NOINLINE currentLanguage #-}
+
+currentTranslations :: IR.IORef Translations
+currentTranslations = UI.unsafePerformIO $ IR.newIORef undefined
+{-# NOINLINE currentTranslations #-}
+
+-- | Obtain language to be used from process's locale.
+languageFromLocale :: IO LanguageId
+languageFromLocale = do
+  mbLocale <- SL.setLocale SL.LC_MESSAGES (Just "")
+  let locale = MB.fromMaybe "C" mbLocale
+  return $ takeWhile (/= '_') locale

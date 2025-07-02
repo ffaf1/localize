@@ -24,8 +24,7 @@ library
                        Text.Localize.IO
   other-modules:       Text.Localize.Types,
                        Text.Localize.Load,
-                       Text.Localize.State,
-                       Text.Localize.Locale
+                       Text.Localize.State
   build-depends:       binary >=0.7 && < 0.9,
                        containers >=0.5 && < 0.9,
                        bytestring >= 0.10 && < 0.13,

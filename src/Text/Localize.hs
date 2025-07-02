@@ -55,7 +55,6 @@ import Data.Text.Format.Heavy.Parse (parseFormat)
 
 import Text.Localize.Types
 import Text.Localize.Load
-import Text.Localize.Locale
 import Text.Localize.State
 
 -- $description
